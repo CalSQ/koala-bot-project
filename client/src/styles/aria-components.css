@@ -1,0 +1,28 @@
+.react-aria-Button {
+  background-color: #1c1e23;
+  border: 1px solid #bbbbbb88;
+  color: #bbbbbb;
+
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+  font-size: 0.75rem;
+  gap: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 250ms, color 250ms;
+
+  &[data-pressed] {
+    background-color: #bbbbbb88;
+    color: #1c1e23;
+    border-color: #1c1e23;
+  }
+
+  &[data-focus-visible] {
+    outline: 2px solid #bbbbbb88;
+    outline-offset: -1px;
+  }
+}
