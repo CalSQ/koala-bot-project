@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Button, ListBoxItem, Popover, Select } from 'react-aria-components';
-import { FaExternalLinkAlt } from 'react-icons/fa';
 
 export const PageContentDivision = styled.div`
   display: flex;

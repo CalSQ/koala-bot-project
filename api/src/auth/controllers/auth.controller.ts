@@ -34,7 +34,12 @@ export class AuthController {
 
   @Get('redirect')
   async redirect(@Req() request: Request, @Res() response: Response) {
-    const { code } = request.query;
+    const { code, guild_id } = request.query;
+    if (guild_id) {
+      return response.redirect(
+        `${process.env.FRONTEND_HOST + FRONTEND_ROUTES.DASHBOARD}?guild=${guild_id}`,
+      );
+    }
     if (!code)
       throw new HttpException('No code provided', HttpStatus.BAD_REQUEST);
     try {
