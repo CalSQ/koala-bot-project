@@ -11,6 +11,7 @@ import './styles/aria-components.css';
 import { NotFoundPage } from './pages/notFoundPage';
 import { UserPage } from './pages/userPage';
 import { ReportPage } from './pages/reportPage';
+import { GuildPage } from './pages/guildPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -56,9 +57,9 @@ function App() {
           <Route
             path="/dashboard/guild"
             element={
-              <ProtectedRoute>
-                <Navbar title="Guild Settings" />
-                <DashboardPage />
+              <ProtectedRoute blockGuild>
+                <Navbar title="Guild Settings" returnLink />
+                <GuildPage />
               </ProtectedRoute>
             }
           />

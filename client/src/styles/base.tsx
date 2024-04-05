@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button, ListBoxItem, Popover, Select } from 'react-aria-components';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 export const PageContentDivision = styled.div`
   display: flex;
@@ -66,6 +67,7 @@ export const MainButton = styled(Button)<{
   $slim?: boolean;
   $warning?: boolean;
   $notification?: number;
+  $link?: boolean;
 }>`
   height: ${(props) => (props.$slim ? '80px' : '200px')};
   width: 200px;
@@ -94,6 +96,11 @@ export const MainButton = styled(Button)<{
   &[data-focus-visible] {
     outline: 2px solid #bbbbbb88;
     outline-offset: -1px;
+  }
+
+  &[data-disabled] {
+    border-color: #723e3e88;
+    cursor: not-allowed;
   }
 
   img {
@@ -128,6 +135,21 @@ export const MainButton = styled(Button)<{
         color: '#fff',
       },
     }}
+
+  ${(props) =>
+    props.$link && {
+      position: 'relative',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#00000080',
+        borderRadius: '10px',
+      },
+    }}
 `;
 
 export const SelectMenu = styled(Select)`
@@ -143,7 +165,6 @@ export const SelectPopover = styled(Popover)`
   color: #858585;
   max-height: 300px;
   overflow-y: auto;
-  //padding: 5px 0;
   width: 200px;
 
   & > * {
@@ -152,50 +173,29 @@ export const SelectPopover = styled(Popover)`
     gap: 5px;
     outline: none;
     border: none;
-
-    /* & > * {
-      padding: 10px 15px;
-      outline: none;
-      border: none;
-      cursor: pointer;
-
-      &[data-selected] {
-        color: #fff;
-        cursor: default;
-      }
-
-      &[data-focus-visible] {
-        border: 2px solid #bbbbbb88;
-        border-radius: 10px;
-      }
-
-      &:hover {
-        background-color: #212121;
-      }
-    } */
   }
 `;
 
 export const SelectListItem = styled(ListBoxItem)`
   padding: 10px 15px;
-      outline: none;
-      border: none;
-      cursor: pointer;
+  outline: none;
+  border: none;
+  cursor: pointer;
 
-      &[data-selected] {
-        color: #fff;
-        cursor: default;
-      }
+  &[data-selected] {
+    color: #fff;
+    cursor: default;
+  }
 
-      &[data-focus-visible] {
-        border: 2px solid #bbbbbb88;
-        border-radius: 10px;
-      }
+  &[data-focus-visible] {
+    border: 2px solid #bbbbbb88;
+    border-radius: 10px;
+  }
 
-      &:hover {
-        background-color: #212121;
-      }
-`
+  &:hover {
+    background-color: #212121;
+  }
+`;
 
 export const SelectButton = styled(Button)`
   height: 50px;

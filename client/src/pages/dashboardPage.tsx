@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   MainButton,
   MainContent,
@@ -8,15 +8,37 @@ import {
   Seperator,
 } from '../styles/base';
 
-import defaultDiscordIcon from '../assets/defaultDiscordIcon.png';
-
 import { API_ENDPOINTS } from '../utils/constants';
 import { IoLogOut, IoMegaphone } from 'react-icons/io5';
 import { FaUserCog } from 'react-icons/fa';
+import { FetchMutualGuilds } from '../queries/FetchMutualGuilds';
+import { useContext } from 'react';
+import { GuildContext } from '../contexts/GuildContext';
+import { PartialGuild } from '../utils/types';
+import { fetchGuildIcon } from '../utils/helpers';
 
 export function DashboardPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  const { updateGuild } = useContext(GuildContext);
+  const { data, isLoading, isError } = FetchMutualGuilds();
+
+  const handleAvailableGuildPress = (guild: PartialGuild) => {
+    updateGuild(guild);
+    navigate('/dashboard/guild', { state: { from: location } });
+  };
+  const handleUnavailableGuildPress = (guild: PartialGuild) => {
+    window.location.href = `https://discord.com/api/oauth2/authorize?client_id=1149189404770979840&permissions=8&scope=bot+applications.commands&guild_id=${guild.id}&response_type=code&redirect_uri=http://localhost:6001/api/auth/redirect/`;
+  };
+
+  const guildParam = searchParams.get('guild');
+  if (guildParam) {
+    const guild = data?.data.available.find((guild) => guild.id === guildParam);
+    updateGuild(guild);
+    navigate('/dashboard/guild', { state: { from: location } });
+  }
 
   return (
     <PageContentDivision>
@@ -37,30 +59,39 @@ export function DashboardPage() {
               <Seperator />
             </header>
             <SectionMain>
-              <MainButton>
+              {/* <MainButton>
                 <img src={defaultDiscordIcon} alt="Guild" />
                 <p>Guild name</p>
-              </MainButton>
-              <MainButton>
-                <img src={defaultDiscordIcon} alt="Guild" />
-                <p>Guild name</p>
-              </MainButton>
-              <MainButton>
-                <img src={defaultDiscordIcon} alt="Guild" />
-                <p>Guild name</p>
-              </MainButton>
-              <MainButton>
-                <img src={defaultDiscordIcon} alt="Guild" />
-                <p>Guild name</p>
-              </MainButton>
-              <MainButton>
-                <img src={defaultDiscordIcon} alt="Guild" />
-                <p>Guild name</p>
-              </MainButton>
-              <MainButton>
-                <img src={defaultDiscordIcon} alt="Guild" />
-                <p>Guild name</p>
-              </MainButton>
+              </MainButton> */}
+              {isLoading ? (
+                <div>Loading...</div>
+              ) : (
+                <>
+                  {data?.data && (
+                    <>
+                      {data.data.available.map((guild) => (
+                        <MainButton
+                          key={guild.id}
+                          onPress={() => handleAvailableGuildPress(guild)}
+                        >
+                          <img src={fetchGuildIcon(guild)} alt={guild.name} />
+                          <p>{guild.name}</p>
+                        </MainButton>
+                      ))}
+                      {data.data.unavailable.map((guild) => (
+                        <MainButton
+                          $link
+                          key={guild.id}
+                          onPress={() => handleUnavailableGuildPress(guild)}
+                        >
+                          <img src={fetchGuildIcon(guild)} alt={guild.name} />
+                          <p>{guild.name}</p>
+                        </MainButton>
+                      ))}
+                    </>
+                  )}
+                </>
+              )}
             </SectionMain>
           </section>
 

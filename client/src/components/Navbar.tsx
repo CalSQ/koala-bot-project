@@ -93,6 +93,7 @@ export const Navbar = ({ title, returnLink, iconUrl }: NavbarProps) => {
         <FlexContainer
           style={{
             justifyContent: 'center',
+            userSelect: 'none',
           }}
         >
           <NavTitle>{title}</NavTitle>
@@ -101,6 +102,7 @@ export const Navbar = ({ title, returnLink, iconUrl }: NavbarProps) => {
       <FlexContainer
         style={{
           justifyContent: 'right',
+          userSelect: 'none',
         }}
       >
         <NavIcon src={iconUrl ?? koalaBotIcon}></NavIcon>
