@@ -2,6 +2,7 @@
   background-color: #1c1e23;
   border: 1px solid #bbbbbb88;
   color: #bbbbbb;
+  user-select: none;
 
   font-weight: 600;
   display: flex;

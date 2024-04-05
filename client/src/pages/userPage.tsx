@@ -1,9 +1,12 @@
+import { ListBoxItem } from 'react-aria-components';
+import { AriaSelect } from '../components/AriaSelect';
 import {
   MainButton,
   MainContent,
   PageContentDivision,
   SectionHeading,
   SectionMain,
+  SelectListItem,
   Seperator,
 } from '../styles/base';
 
@@ -17,6 +20,22 @@ export function UserPage() {
             width: '100%',
           }}
         >
+          <section>
+            <header
+              style={{
+                marginBottom: '15px',
+              }}
+            >
+              <SectionHeading>Components</SectionHeading>
+              <Seperator />
+            </header>
+            <SectionMain>
+              <AriaSelect label="Prefix">
+                <SelectListItem>Hi</SelectListItem>
+                <SelectListItem>There</SelectListItem>
+              </AriaSelect>
+            </SectionMain>
+          </section>
           <section>
             <header
               style={{

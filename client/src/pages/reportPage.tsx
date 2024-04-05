@@ -1,5 +1,4 @@
-import { FaBug, FaUser } from 'react-icons/fa';
-import { MdReportProblem } from 'react-icons/md';
+import { FaBug, FaUser, FaExclamationTriangle } from 'react-icons/fa';
 import {
   MainButton,
   MainContent,
@@ -25,7 +24,7 @@ export function ReportPage() {
                 marginBottom: '15px',
               }}
             >
-              <SectionHeading>Linking</SectionHeading>
+              <SectionHeading>Options</SectionHeading>
               <Seperator />
             </header>
             <SectionMain>
@@ -38,7 +37,7 @@ export function ReportPage() {
                 <p>User Report</p>
               </MainButton>
               <MainButton>
-                <MdReportProblem className="icon" />
+                <FaExclamationTriangle className="icon" />
                 <p>Complaint</p>
               </MainButton>
             </SectionMain>

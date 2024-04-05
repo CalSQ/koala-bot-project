@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'react-aria-components';
+import { Button, ListBoxItem, Popover, Select } from 'react-aria-components';
 
 export const PageContentDivision = styled.div`
   display: flex;
@@ -60,16 +60,19 @@ export const SectionMain = styled.main`
   }
 `;
 
+// Aria Components
+
 export const MainButton = styled(Button)<{
   $slim?: boolean;
   $warning?: boolean;
+  $notification?: number;
 }>`
   height: ${(props) => (props.$slim ? '80px' : '200px')};
   width: 200px;
   min-width: 200px;
   background-color: #111113;
   border: 1px solid #212121;
-  border-radius: 15px;
+  border-radius: 10px;
 
   display: flex;
   flex-direction: ${(props) => (props.$slim ? 'row' : 'column')};
@@ -84,7 +87,7 @@ export const MainButton = styled(Button)<{
 
   &[data-pressed] {
     background-color: #212121;
-    border-color: #fff;
+    border-color: #ffffff88;
     color: #fff;
   }
 
@@ -107,5 +110,122 @@ export const MainButton = styled(Button)<{
     font-size: 0.9rem;
     font-weight: bold;
     margin: 0;
+  }
+
+  ${(props) =>
+    props.$notification && {
+      position: 'relative',
+      '&::after': {
+        content: `"${props.$notification}"`,
+        fontWeight: '500',
+        position: 'absolute',
+        top: '-5px',
+        right: '-5px',
+        width: '20px',
+        aspectRatio: '1',
+        borderRadius: '50%',
+        backgroundColor: '#723E3E',
+        color: '#fff',
+      },
+    }}
+`;
+
+export const SelectMenu = styled(Select)`
+  font-size: 0.85rem;
+  font-weight: 500;
+`;
+
+export const SelectPopover = styled(Popover)`
+  background-color: #111113;
+  border: 1px solid #212121;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 0 #00000088;
+  color: #858585;
+  max-height: 300px;
+  overflow-y: auto;
+  //padding: 5px 0;
+  width: 200px;
+
+  & > * {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    outline: none;
+    border: none;
+
+    /* & > * {
+      padding: 10px 15px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+
+      &[data-selected] {
+        color: #fff;
+        cursor: default;
+      }
+
+      &[data-focus-visible] {
+        border: 2px solid #bbbbbb88;
+        border-radius: 10px;
+      }
+
+      &:hover {
+        background-color: #212121;
+      }
+    } */
+  }
+`;
+
+export const SelectListItem = styled(ListBoxItem)`
+  padding: 10px 15px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+
+      &[data-selected] {
+        color: #fff;
+        cursor: default;
+      }
+
+      &[data-focus-visible] {
+        border: 2px solid #bbbbbb88;
+        border-radius: 10px;
+      }
+
+      &:hover {
+        background-color: #212121;
+      }
+`
+
+export const SelectButton = styled(Button)`
+  height: 50px;
+  width: 200px;
+  min-width: 200px;
+  background-color: #111113;
+  border: 1px solid #212121;
+  color: #858585;
+  padding-inline: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 15px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 10px;
+
+  & > *:first-child {
+    flex-grow: 1;
+    text-align: left;
+  }
+
+  &[data-pressed] {
+    background-color: #212121;
+    border-color: #ffffff88;
+    color: #fff;
+  }
+
+  &[data-focus-visible] {
+    outline: 2px solid #bbbbbb88;
+    outline-offset: -1px;
   }
 `;

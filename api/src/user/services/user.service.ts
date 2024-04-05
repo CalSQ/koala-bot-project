@@ -20,8 +20,9 @@ export class UserService implements IUserService {
     updateProps: PartialUserDetails,
     upsert: boolean = false,
   ) {
-    return this.userModel.findOneAndUpdate({ discordId }, updateProps, {
-      upsert: upsert,
+    return this.userModel.findOneAndUpdate({ discordId }, updateProps ?? {}, {
+      upsert,
+      new: true,
     });
   }
 }

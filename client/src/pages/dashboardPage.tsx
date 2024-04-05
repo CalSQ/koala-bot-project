@@ -76,6 +76,7 @@ export function DashboardPage() {
             <SectionMain>
               <MainButton
                 $slim
+                $notification={1}
                 onPress={() => {
                   navigate('/dashboard/user', { state: { from: location } });
                 }}

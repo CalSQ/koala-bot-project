@@ -7,9 +7,9 @@ import { DiscordModule } from './discord/discord.module';
 
 @Module({
   imports: [
-    // ConfigModule.forRoot({
-    //   envFilePath: '.env.development',
-    // }),
+    ConfigModule.forRoot({
+      envFilePath: '.env.development',
+    }),
     MongooseModule.forRoot(process.env.MONGO_URI, { autoIndex: true }),
     AuthModule,
     UsersModule,

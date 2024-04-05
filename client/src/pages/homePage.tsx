@@ -5,7 +5,7 @@ import { Link, MainContent, PageContentDivision } from '../styles/base';
 import { Button } from 'react-aria-components';
 import { FaDiscord, FaExternalLinkAlt } from 'react-icons/fa';
 import koalaBotIcon from '../assets/koalaBotIcon.png';
-import { SUPPORT_SERVER } from '../utils/constants';
+import { API_ENDPOINTS, SUPPORT_SERVER } from '../utils/constants';
 
 const Footer = styled.footer`
   font-size: 0.85rem;
@@ -27,7 +27,7 @@ export function HomePage() {
     if (data?.data) {
       navigate('/dashboard', { state: { from: location } });
     } else {
-      window.location.href = 'http://localhost:6001/api/auth/login';
+      window.location.href = API_ENDPOINTS.AUTH_LOGIN;
     }
   };
 

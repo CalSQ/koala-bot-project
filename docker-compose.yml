@@ -2,31 +2,31 @@ networks:
   app-network:
     driver: bridge
 services:
-  api:
-    build: ./api
-    restart: always
-    ports:
-      - 6001:6001
-    env_file:
-      - path: .env
-        required: true
-    networks:
-      - app-network
-    depends_on:
-      - mongo
+  # api:
+  #   build: ./api
+  #   restart: always
+  #   ports:
+  #     - 6001:6001
+  #   env_file:
+  #     - path: .env
+  #       required: true
+  #   networks:
+  #     - app-network
+  #   depends_on:
+  #     - mongo
 
-  client:
-    build: ./client
-    restart: always
-    ports:
-      - 3001:3001
-    env_file:
-      - path: .env
-        required: false
-    networks:
-      - app-network
-    depends_on:
-      - api
+  # client:
+  #   build: ./client
+  #   restart: always
+  #   ports:
+  #     - 3001:3001
+  #   env_file:
+  #     - path: .env
+  #       required: false
+  #   networks:
+  #     - app-network
+  #   depends_on:
+  #     - api
 
   # bot:
   #   build: ./bot

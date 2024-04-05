@@ -12,7 +12,17 @@ import { NotFoundPage } from './pages/notFoundPage';
 import { UserPage } from './pages/userPage';
 import { ReportPage } from './pages/reportPage';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: true,
+      retry: false,
+      staleTime: 60_000,
+    },
+  },
+});
 
 function App() {
   // States
