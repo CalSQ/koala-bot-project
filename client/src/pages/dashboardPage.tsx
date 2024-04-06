@@ -36,8 +36,7 @@ export function DashboardPage() {
   const guildParam = searchParams.get('guild');
   if (guildParam) {
     const guild = data?.data.available.find((guild) => guild.id === guildParam);
-    updateGuild(guild);
-    navigate('/dashboard/guild', { state: { from: location } });
+    if (guild) handleAvailableGuildPress(guild);
   }
 
   return (
