@@ -26,7 +26,10 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: 'http://localhost:3001',
+    origin:
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3001'
+        : 'http://152.53.21.200:3001',
     credentials: true,
   });
 
