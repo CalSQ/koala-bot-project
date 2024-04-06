@@ -66,6 +66,17 @@ export function HomePage() {
             </>
           )}
         </Button>
+        <span
+          style={{
+            color: '#6C6C6C',
+            fontSize: '0.8rem',
+          }}
+        >
+          {process.env.NODE_ENV === 'development'
+            ? 'Development'
+            : 'Production'}{' '}
+          Build
+        </span>
       </MainContent>
       <Footer>
         <span

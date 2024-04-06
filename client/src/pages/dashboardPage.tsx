@@ -8,7 +8,7 @@ import {
   Seperator,
 } from '../styles/base';
 
-import { API_ENDPOINTS } from '../utils/constants';
+import { API_ENDPOINTS, BOT_INVITE_URL } from '../utils/constants';
 import { IoLogOut, IoMegaphone } from 'react-icons/io5';
 import { FaUserCog } from 'react-icons/fa';
 import { FetchMutualGuilds } from '../queries/FetchMutualGuilds';
@@ -23,14 +23,14 @@ export function DashboardPage() {
   const [searchParams] = useSearchParams();
 
   const { updateGuild } = useContext(GuildContext);
-  const { data, isLoading, isError } = FetchMutualGuilds();
+  const { data, isLoading } = FetchMutualGuilds();
 
   const handleAvailableGuildPress = (guild: PartialGuild) => {
     updateGuild(guild);
     navigate('/dashboard/guild', { state: { from: location } });
   };
   const handleUnavailableGuildPress = (guild: PartialGuild) => {
-    window.location.href = `https://discord.com/api/oauth2/authorize?client_id=1149189404770979840&permissions=8&scope=bot+applications.commands&guild_id=${guild.id}&response_type=code&redirect_uri=http://localhost:6001/api/auth/redirect/`;
+    window.location.href = BOT_INVITE_URL + guild.id;
   };
 
   const guildParam = searchParams.get('guild');

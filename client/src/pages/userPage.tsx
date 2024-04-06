@@ -1,4 +1,3 @@
-import { ListBoxItem } from 'react-aria-components';
 import { AriaSelect } from '../components/AriaSelect';
 import {
   MainButton,

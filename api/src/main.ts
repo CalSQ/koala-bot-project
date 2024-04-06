@@ -6,6 +6,8 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  console.log(process.env.DISCORD_APP_ID);
+
   app.setGlobalPrefix('api');
 
   // Middlewares
@@ -30,7 +32,9 @@ async function bootstrap() {
 
   try {
     await app.listen(process.env.PORT);
-    console.log(`Running on port ${process.env.PORT}`);
+    console.log(
+      `Running on port ${process.env.PORT} in ${process.env.NODE_ENV} mode`,
+    );
   } catch (err) {
     throw new Error(`Could not listen for port: ${process.env.PORT}`);
   }
