@@ -58,7 +58,11 @@ function App() {
             path="/dashboard/guild"
             element={
               <ProtectedRoute blockGuild>
-                <Navbar title="Guild Settings" returnLink />
+                <Navbar
+                  title="Guild Settings"
+                  iconUrl={guild && guild.icon}
+                  returnLink
+                />
                 <GuildPage />
               </ProtectedRoute>
             }
