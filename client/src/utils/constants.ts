@@ -7,7 +7,7 @@ export enum USER_ROLES {
 export const SUPPORT_SERVER = 'https://discord.gg/yZ4fGKRASK';
 
 export const BASE_ENDPOINT: string =
-  process.env.NODE_ENV === 'development'
+  process.env.REACT_APP_NODE_ENV === 'development'
     ? 'http://localhost:6001/api/'
     : 'http://152.53.21.200:6001/api/';
 
@@ -20,7 +20,7 @@ export const API_ENDPOINTS = {
 };
 
 export const DISCORD_APP_ID =
-  process.env.NODE_ENV === 'development'
+  process.env.REACT_APP_NODE_ENV === 'development'
     ? '1149189404770979840'
     : '1225944222855729243';
 
