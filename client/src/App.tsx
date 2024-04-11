@@ -11,8 +11,9 @@ import { NotFoundPage } from './pages/notFoundPage';
 import { UserPage } from './pages/userPage';
 import { ReportPage } from './pages/reportPage';
 import { GuildPageGeneral } from './pages/guildPage';
-import { GuildPageBase, Sidebar } from './styles/base';
+import { GuildPageBase } from './styles/base';
 import './styles/aria-components.css';
+import { Sidebar } from './components/Sidebar';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,6 +30,7 @@ const queryClient = new QueryClient({
 function App() {
   // States
   const [guild, setGuild] = useState<PartialGuild>();
+  const [sidebar, setSidebar] = useState<boolean>(true);
 
   // Utility
   const updateGuild = (guild?: PartialGuild) => setGuild(guild);
@@ -59,7 +61,11 @@ function App() {
             path="/dashboard/user"
             element={
               <ProtectedRoute>
-                <Navbar title="User Settings" returnLink />
+                <Navbar
+                  title="User Settings"
+                  sidebarState={sidebar}
+                  setSidebarState={setSidebar}
+                />
                 <UserPage />
               </ProtectedRoute>
             }
@@ -68,7 +74,11 @@ function App() {
             path="/dashboard/report"
             element={
               <ProtectedRoute>
-                <Navbar title="Report Panel" returnLink />
+                <Navbar
+                  title="Report Panel"
+                  sidebarState={sidebar}
+                  setSidebarState={setSidebar}
+                />
                 <ReportPage />
               </ProtectedRoute>
             }
@@ -77,9 +87,13 @@ function App() {
             path="/dashboard/guild"
             element={
               <ProtectedRoute blockGuild>
-                <Navbar title="Guild Settings" returnLink />
+                <Navbar
+                  title="Guild Settings"
+                  sidebarState={sidebar}
+                  setSidebarState={setSidebar}
+                />
                 <GuildPageBase>
-                  <Sidebar />
+                  <Sidebar sidebarState={sidebar} />
                   <GuildPageGeneral />
                 </GuildPageBase>
               </ProtectedRoute>
@@ -89,7 +103,11 @@ function App() {
             path="/dashboard/guild/test"
             element={
               <ProtectedRoute blockGuild>
-                <Navbar title="Test" returnLink />
+                <Navbar
+                  title="Test"
+                  sidebarState={sidebar}
+                  setSidebarState={setSidebar}
+                />
                 <GuildPageGeneral />
               </ProtectedRoute>
             }

@@ -3,7 +3,8 @@ import koalaBotIcon from '../assets/koalaBotIcon.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchGuildIcon } from '../utils/helpers';
 import { GuildContext } from '../contexts/GuildContext';
-import { useContext } from 'react';
+import { Dispatch, SetStateAction, useContext } from 'react';
+import { FaBars } from 'react-icons/fa';
 
 const Nav = styled.nav`
   box-sizing: border-box;
@@ -11,9 +12,12 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding-inline: 2rem;
-  background-color: inherit;
+  background-color: #151517;
   height: 3.75rem;
   border-bottom: 1px solid #6a6a6a;
+  z-index: 100;
+  position: sticky;
+  top: 0;
 `;
 
 const FlexContainer = styled.div`
@@ -53,13 +57,18 @@ const NavTitle = styled.span`
 
 type NavbarProps = {
   title?: string;
-  returnLink?: boolean;
+  sidebarState?: boolean;
+  setSidebarState?: Dispatch<SetStateAction<boolean>>;
 };
 
-export const Navbar = ({ title, returnLink }: NavbarProps) => {
+export const Navbar = ({
+  title,
+  sidebarState,
+  setSidebarState,
+}: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { guild, updateGuild } = useContext(GuildContext);
+  const { guild } = useContext(GuildContext);
 
   return (
     <Nav>
@@ -68,15 +77,18 @@ export const Navbar = ({ title, returnLink }: NavbarProps) => {
           justifyContent: 'left',
         }}
       >
-        {returnLink ? (
-          <NavLink
-            onClick={() => {
-              updateGuild(undefined);
-              navigate('/dashboard', { state: { from: location } });
-            }}
-          >
-            Return to dashboard
-          </NavLink>
+        {setSidebarState ? (
+          <>
+            <FaBars size={18} onClick={() => setSidebarState(!sidebarState)} />
+            {/* <NavLink
+              onClick={() => {
+                updateGuild(undefined);
+                navigate('/dashboard', { state: { from: location } });
+              }}
+            >
+              Return to dashboard
+            </NavLink> */}
+          </>
         ) : (
           <>
             <NavLink

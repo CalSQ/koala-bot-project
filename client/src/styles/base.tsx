@@ -72,18 +72,6 @@ export const GuildPageBase = styled.div`
   width: 100%;
 `;
 
-export const Sidebar = styled.div`
-  background-color: #131315;
-  border-right: 1px solid #6a6a6a;
-  height: calc(100vh - 3.75rem);
-  width: 250px;
-
-  @media (orientation: portrait) {
-    position: fixed;
-    width: 100vw;
-  }
-`;
-
 // Aria Components
 
 export const MainButton = styled(Button)<{
