@@ -58,10 +58,6 @@ export function DashboardPage() {
               <Seperator />
             </header>
             <SectionMain>
-              {/* <MainButton>
-                <img src={defaultDiscordIcon} alt="Guild" />
-                <p>Guild name</p>
-              </MainButton> */}
               {isLoading ? (
                 <div>Loading...</div>
               ) : (

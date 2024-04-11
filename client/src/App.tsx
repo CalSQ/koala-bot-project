@@ -7,11 +7,12 @@ import { HomePage } from './pages/homePage';
 import { DashboardPage } from './pages/dashboardPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Navbar } from './components/Navbar';
-import './styles/aria-components.css';
 import { NotFoundPage } from './pages/notFoundPage';
 import { UserPage } from './pages/userPage';
 import { ReportPage } from './pages/reportPage';
-import { GuildPage } from './pages/guildPage';
+import { GuildPageGeneral } from './pages/guildPage';
+import { GuildPageBase, Sidebar } from './styles/base';
+import './styles/aria-components.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,19 +56,6 @@ function App() {
             }
           />
           <Route
-            path="/dashboard/guild"
-            element={
-              <ProtectedRoute blockGuild>
-                <Navbar
-                  title="Guild Settings"
-                  iconUrl={guild && guild.icon}
-                  returnLink
-                />
-                <GuildPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/dashboard/user"
             element={
               <ProtectedRoute>
@@ -82,6 +70,27 @@ function App() {
               <ProtectedRoute>
                 <Navbar title="Report Panel" returnLink />
                 <ReportPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/guild"
+            element={
+              <ProtectedRoute blockGuild>
+                <Navbar title="Guild Settings" returnLink />
+                <GuildPageBase>
+                  <Sidebar />
+                  <GuildPageGeneral />
+                </GuildPageBase>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/guild/test"
+            element={
+              <ProtectedRoute blockGuild>
+                <Navbar title="Test" returnLink />
+                <GuildPageGeneral />
               </ProtectedRoute>
             }
           />

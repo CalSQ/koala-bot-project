@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 import koalaBotIcon from '../assets/koalaBotIcon.png';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { fetchGuildIcon } from '../utils/helpers';
+import { GuildContext } from '../contexts/GuildContext';
+import { useContext } from 'react';
 
 const Nav = styled.nav`
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,12 +54,12 @@ const NavTitle = styled.span`
 type NavbarProps = {
   title?: string;
   returnLink?: boolean;
-  iconUrl?: string;
 };
 
-export const Navbar = ({ title, returnLink, iconUrl }: NavbarProps) => {
+export const Navbar = ({ title, returnLink }: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { guild, updateGuild } = useContext(GuildContext);
 
   return (
     <Nav>
@@ -66,9 +70,10 @@ export const Navbar = ({ title, returnLink, iconUrl }: NavbarProps) => {
       >
         {returnLink ? (
           <NavLink
-            onClick={() =>
-              navigate('/dashboard', { state: { from: location } })
-            }
+            onClick={() => {
+              updateGuild(undefined);
+              navigate('/dashboard', { state: { from: location } });
+            }}
           >
             Return to dashboard
           </NavLink>
@@ -105,7 +110,7 @@ export const Navbar = ({ title, returnLink, iconUrl }: NavbarProps) => {
           userSelect: 'none',
         }}
       >
-        <NavIcon src={iconUrl ?? koalaBotIcon}></NavIcon>
+        <NavIcon src={guild ? fetchGuildIcon(guild) : koalaBotIcon}></NavIcon>
       </FlexContainer>
     </Nav>
   );

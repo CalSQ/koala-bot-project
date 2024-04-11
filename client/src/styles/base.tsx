@@ -19,6 +19,12 @@ export const MainContent = styled.main`
 
   font-weight: 600;
   padding: 25px 25px;
+  flex-grow: 1;
+`;
+
+export const MainGuildContent = styled.main`
+  display: flex;
+  flex-direction: row;
 `;
 
 export const Link = styled.a`
@@ -57,6 +63,24 @@ export const SectionMain = styled.main`
 
   & > * {
     flex-grow: 1;
+  }
+`;
+
+export const GuildPageBase = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+
+export const Sidebar = styled.div`
+  background-color: #131315;
+  border-right: 1px solid #6a6a6a;
+  height: calc(100vh - 3.75rem);
+  width: 250px;
+
+  @media (orientation: portrait) {
+    position: fixed;
+    width: 100vw;
   }
 `;
 
