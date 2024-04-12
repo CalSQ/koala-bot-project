@@ -2,13 +2,6 @@ networks:
   app-network:
     driver: bridge
 services:
-  nginx:
-    build: ./nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    networks:
-      - app-network
   api:
     build: ./api
     restart: always
@@ -60,5 +53,12 @@ services:
   #     #ALLOW_EMPTY_PASSWORD: yes
   #   networks:
   #     - app-network
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - app-network
 volumes:
   data:
