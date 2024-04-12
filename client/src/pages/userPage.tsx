@@ -1,7 +1,7 @@
 import { AriaSelect } from '../components/AriaSelect';
 import {
-  MainButton,
   MainContent,
+  MiscButton,
   PageContentDivision,
   SectionHeading,
   SectionMain,
@@ -45,9 +45,9 @@ export function UserPage() {
               <Seperator />
             </header>
             <SectionMain>
-              <MainButton $slim>
+              <MiscButton>
                 <p>Connect Roblox</p>
-              </MainButton>
+              </MiscButton>
             </SectionMain>
           </section>
 
@@ -61,9 +61,9 @@ export function UserPage() {
               <Seperator />
             </header>
             <SectionMain>
-              <MainButton $slim $warning>
+              <MiscButton warning>
                 <p>Request the deletion of your data</p>
-              </MainButton>
+              </MiscButton>
             </SectionMain>
           </section>
         </div>

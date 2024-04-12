@@ -1,7 +1,7 @@
 import { FaBug, FaUser, FaExclamationTriangle } from 'react-icons/fa';
 import {
-  MainButton,
   MainContent,
+  MiscButton,
   PageContentDivision,
   SectionHeading,
   SectionMain,
@@ -28,18 +28,18 @@ export function ReportPage() {
               <Seperator />
             </header>
             <SectionMain>
-              <MainButton>
+              <MiscButton>
                 <FaBug className="icon" />
                 <p>Bug Report</p>
-              </MainButton>
-              <MainButton>
+              </MiscButton>
+              <MiscButton>
                 <FaUser className="icon" />
                 <p>User Report</p>
-              </MainButton>
-              <MainButton>
+              </MiscButton>
+              <MiscButton>
                 <FaExclamationTriangle className="icon" />
                 <p>Complaint</p>
-              </MainButton>
+              </MiscButton>
             </SectionMain>
           </section>
         </div>

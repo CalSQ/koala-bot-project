@@ -1,8 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FetchAuthSession } from '../queries/FetchAuthSession';
 import styled from 'styled-components';
-import { Link, MainContent, PageContentDivision } from '../styles/base';
-import { Button } from 'react-aria-components';
+import {
+  ButtonBase,
+  Link,
+  MainContent,
+  PageContentDivision,
+} from '../styles/base';
 import { FaDiscord, FaExternalLinkAlt } from 'react-icons/fa';
 import koalaBotIcon from '../assets/koalaBotIcon.png';
 import { API_ENDPOINTS, SUPPORT_SERVER } from '../utils/constants';
@@ -46,8 +50,8 @@ export function HomePage() {
             height: 'auto',
           }}
         />
-        Welcome to the KoalaBot dashboard!
-        <Button
+        Welcome to the Dashboard!
+        <ButtonBase
           onPress={handleLogin}
           style={{
             maxWidth: '25rem',
@@ -56,7 +60,7 @@ export function HomePage() {
         >
           {data?.data ? (
             <>
-              <FaExternalLinkAlt size={14} />
+              <FaExternalLinkAlt size={15} />
               Go to Dashboard
             </>
           ) : (
@@ -65,14 +69,14 @@ export function HomePage() {
               Log in with Discord
             </>
           )}
-        </Button>
+        </ButtonBase>
         <span
           style={{
             color: '#6C6C6C',
             fontSize: '0.8rem',
           }}
         >
-          {process.env.NODE_ENV === 'development'
+          {process.env.REACT_APP_NODE_ENV === 'development'
             ? 'Development'
             : 'Production'}{' '}
           Build

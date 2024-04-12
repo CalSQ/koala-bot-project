@@ -12,7 +12,6 @@ import { UserPage } from './pages/userPage';
 import { ReportPage } from './pages/reportPage';
 import { GuildPageGeneral } from './pages/guildPage';
 import { GuildPageBase } from './styles/base';
-import './styles/aria-components.css';
 import { Sidebar } from './components/Sidebar';
 
 const queryClient = new QueryClient({
@@ -66,7 +65,10 @@ function App() {
                   sidebarState={sidebar}
                   setSidebarState={setSidebar}
                 />
-                <UserPage />
+                <GuildPageBase>
+                  <Sidebar sidebarState={sidebar} />
+                  <UserPage />
+                </GuildPageBase>
               </ProtectedRoute>
             }
           />
@@ -79,7 +81,10 @@ function App() {
                   sidebarState={sidebar}
                   setSidebarState={setSidebar}
                 />
-                <ReportPage />
+                <GuildPageBase>
+                  <Sidebar sidebarState={sidebar} />
+                  <ReportPage />
+                </GuildPageBase>
               </ProtectedRoute>
             }
           />
@@ -96,19 +101,6 @@ function App() {
                   <Sidebar sidebarState={sidebar} />
                   <GuildPageGeneral />
                 </GuildPageBase>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/guild/test"
-            element={
-              <ProtectedRoute blockGuild>
-                <Navbar
-                  title="Test"
-                  sidebarState={sidebar}
-                  setSidebarState={setSidebar}
-                />
-                <GuildPageGeneral />
               </ProtectedRoute>
             }
           />

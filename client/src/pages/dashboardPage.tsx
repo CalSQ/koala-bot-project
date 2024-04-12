@@ -1,7 +1,8 @@
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import {
-  MainButton,
+  GuildButton,
   MainContent,
+  MiscButton,
   PageContentDivision,
   SectionHeading,
   SectionMain,
@@ -65,23 +66,23 @@ export function DashboardPage() {
                   {data?.data && (
                     <>
                       {data.data.available.map((guild) => (
-                        <MainButton
+                        <GuildButton
                           key={guild.id}
                           onPress={() => handleAvailableGuildPress(guild)}
                         >
                           <img src={fetchGuildIcon(guild)} alt={guild.name} />
                           <p>{guild.name}</p>
-                        </MainButton>
+                        </GuildButton>
                       ))}
                       {data.data.unavailable.map((guild) => (
-                        <MainButton
-                          $link
+                        <GuildButton
+                          overlay
                           key={guild.id}
                           onPress={() => handleUnavailableGuildPress(guild)}
                         >
                           <img src={fetchGuildIcon(guild)} alt={guild.name} />
                           <p>{guild.name}</p>
-                        </MainButton>
+                        </GuildButton>
                       ))}
                     </>
                   )}
@@ -96,39 +97,36 @@ export function DashboardPage() {
                 marginBottom: '15px',
               }}
             >
-              <SectionHeading>Other</SectionHeading>
+              <SectionHeading>Miscellaneous</SectionHeading>
               <Seperator />
             </header>
             <SectionMain>
-              <MainButton
-                $slim
-                $notification={1}
+              <MiscButton
+                notification={1}
                 onPress={() => {
                   navigate('/dashboard/user', { state: { from: location } });
                 }}
               >
                 <FaUserCog className="icon" />
                 <p>User Settings</p>
-              </MainButton>
-              <MainButton
-                $slim
+              </MiscButton>
+              <MiscButton
                 onPress={() => {
                   navigate('/dashboard/report', { state: { from: location } });
                 }}
               >
                 <IoMegaphone className="icon" />
                 <p>Report Panel</p>
-              </MainButton>
-              <MainButton
-                $slim
-                $warning
+              </MiscButton>
+              <MiscButton
+                warning
                 onPress={() => {
                   window.location.href = API_ENDPOINTS.AUTH_REVOKE;
                 }}
               >
                 <IoLogOut className="icon" />
                 <p>Logout</p>
-              </MainButton>
+              </MiscButton>
             </SectionMain>
           </section>
         </div>

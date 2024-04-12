@@ -5,10 +5,11 @@ export const PageContentDivision = styled.div`
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 3.75rem);
+  width: 100%;
 
-  main {
-    flex: 1;
-  }
+  background-size: 20px 20px;
+  background-image: linear-gradient(to right, #131315 1px, transparent 1px),
+    linear-gradient(to bottom, #131315 1px, transparent 1px);
 `;
 
 export const MainContent = styled.main`
@@ -40,6 +41,12 @@ export const Link = styled.a`
   }
 `;
 
+export const GuildPageBase = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+
 // Section Styled Components
 
 export const SectionHeading = styled.h1`
@@ -66,37 +73,71 @@ export const SectionMain = styled.main`
   }
 `;
 
-export const GuildPageBase = styled.div`
+// Aria Buttons
+
+export const IconButton = styled(Button)`
+  background: none;
+  border: none;
+  outline: none;
+  aspect-ratio: 1;
+
+  color: #bbbbbb;
+
   display: flex;
-  flex-direction: row;
-  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  &[data-pressed] {
+    color: #fff;
+  }
+
+  &[data-focus-visible] {
+    border: 2px solid #bbbbbb88;
+    border-radius: 5px;
+  }
 `;
 
-// Aria Components
-
-export const MainButton = styled(Button)<{
-  $slim?: boolean;
-  $warning?: boolean;
-  $notification?: number;
-  $link?: boolean;
-}>`
-  height: ${(props) => (props.$slim ? '80px' : '200px')};
+type ButtonBaseProps = {
+  notification?: number;
+  overlay?: boolean;
+  warning?: boolean;
+};
+export const ButtonBase = styled(Button)<ButtonBaseProps>`
   width: 200px;
   min-width: 200px;
   background-color: #111113;
   border: 1px solid #212121;
   border-radius: 10px;
+  height: 50px;
+  margin: 0;
+  padding-inline: 15px;
+
+  color: ${(props) => (props.warning ? '#723E3E' : '#858585')};
+  font-weight: 500;
+  font-size: 0.85rem;
+  overflow: hidden;
 
   display: flex;
-  flex-direction: ${(props) => (props.$slim ? 'row' : 'column')};
   gap: 15px;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  text-align: center;
+
   cursor: pointer;
   outline: none;
   transition: background-color 250ms, color 250ms;
-  color: ${(props) => (props.$warning ? '#723E3E' : '#858585')};
-  padding-inline: 15px;
+
+  p {
+    width: 85%;
+    margin: 0;
+    font-weight: 600;
+    text-align: center;
+    line-height: 22px;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    overflow: hidden;
+  }
 
   &[data-pressed] {
     background-color: #212121;
@@ -114,27 +155,11 @@ export const MainButton = styled(Button)<{
     cursor: not-allowed;
   }
 
-  img {
-    width: auto;
-    height: ${(props) => (props.$slim ? '25px' : '70px')};
-  }
-
-  .icon {
-    width: auto;
-    height: ${(props) => (props.$slim ? '25px' : '40px')};
-  }
-
-  p {
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin: 0;
-  }
-
   ${(props) =>
-    props.$notification && {
+    props.notification && {
       position: 'relative',
       '&::after': {
-        content: `"${props.$notification}"`,
+        content: `"${props.notification}"`,
         fontWeight: '500',
         position: 'absolute',
         top: '-5px',
@@ -148,7 +173,7 @@ export const MainButton = styled(Button)<{
     }}
 
   ${(props) =>
-    props.$link && {
+    props.overlay && {
       position: 'relative',
       '&::before': {
         content: '""',
@@ -162,6 +187,37 @@ export const MainButton = styled(Button)<{
       },
     }}
 `;
+
+export const GuildButton = styled(ButtonBase)`
+  flex-direction: column;
+  height: 200px;
+
+  img {
+    width: auto;
+    height: 70px;
+  }
+`;
+
+export const MiscButton = styled(ButtonBase)`
+  height: 75px;
+
+  & > :first-child {
+    width: auto;
+    height: 25px;
+  }
+`;
+
+export const SidebarButton = styled(ButtonBase)`
+  height: 60px;
+  width: 100%;
+  justify-content: left;
+  padding-left: 1.5rem;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #212121;
+`;
+
+// Aria SelectMenus
 
 export const SelectMenu = styled(Select)`
   font-size: 0.85rem;
@@ -224,6 +280,10 @@ export const SelectButton = styled(Button)`
   outline: none;
   border-radius: 10px;
 
+  & > .open-icon {
+    display: none;
+  }
+
   & > *:first-child {
     flex-grow: 1;
     text-align: left;
@@ -233,6 +293,14 @@ export const SelectButton = styled(Button)`
     background-color: #212121;
     border-color: #ffffff88;
     color: #fff;
+
+    & > .open-icon {
+      display: inline;
+    }
+
+    & > .closed-icon {
+      display: none;
+    }
   }
 
   &[data-focus-visible] {

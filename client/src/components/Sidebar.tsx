@@ -9,6 +9,7 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { GuildContext } from '../contexts/GuildContext';
+import { SidebarButton } from '../styles/base';
 
 const SidebarBase = styled.div<{ sidebarState: boolean }>`
   position: sticky;
@@ -22,7 +23,7 @@ const SidebarBase = styled.div<{ sidebarState: boolean }>`
   flex-direction: column;
   overflow-y: auto;
   z-index: 1;
-  // resize: horizontal;
+  /* resize: horizontal; */
 
   & > :last-child {
     position: sticky;
@@ -38,38 +39,6 @@ const SidebarBase = styled.div<{ sidebarState: boolean }>`
   }
 `;
 
-const NavSidebarItem = styled.div<{ hoverColor?: string }>`
-  align-items: center;
-  display: flex;
-  text-decoration: none;
-  font-weight: 500;
-  color: #686868;
-  box-sizing: border-box;
-  background-color: #111113;
-  width: 100%;
-  height: 60px;
-  border-bottom: 1px solid #212121;
-  padding: 16px;
-  padding-left: 1.5rem;
-  transition: all 150ms ease-in-out;
-  gap: 0.75rem;
-  cursor: pointer;
-  user-select: none;
-
-  &:hover {
-    background-color: #0b0b0c;
-    color: #adadad;
-
-    & > .icon {
-      color: ${(props) => props.hoverColor ?? '#9960a3'};
-    }
-  }
-
-  & > .icon {
-    transition: all 150ms ease-in-out;
-  }
-`;
-
 type SidebarProps = {
   sidebarState: boolean;
 };
@@ -81,31 +50,31 @@ export const Sidebar = ({ sidebarState }: SidebarProps) => {
 
   return (
     <SidebarBase sidebarState={sidebarState}>
-      <NavSidebarItem>
+      <SidebarButton>
         <FaHammer className="icon" size={18} />
         <span>Moderation</span>
-      </NavSidebarItem>
-      <NavSidebarItem>
+      </SidebarButton>
+      <SidebarButton>
         <FaTag className="icon" size={18} />
         <span>Tags</span>
-      </NavSidebarItem>
-      <NavSidebarItem>
+      </SidebarButton>
+      <SidebarButton>
         <FaUsers className="icon" size={18} />
         <span>Permissions</span>
-      </NavSidebarItem>
-      <NavSidebarItem>
+      </SidebarButton>
+      <SidebarButton>
         <FaCog className="icon" size={18} />
         <span>Settings</span>
-      </NavSidebarItem>
-      <NavSidebarItem
-        onClick={() => {
+      </SidebarButton>
+      <SidebarButton
+        onPress={() => {
           updateGuild(undefined);
           navigate('/dashboard', { state: { from: location } });
         }}
       >
         <FaAngleDoubleLeft className="icon" size={18} />
         <span>Return to Dashboard</span>
-      </NavSidebarItem>
+      </SidebarButton>
     </SidebarBase>
   );
 };

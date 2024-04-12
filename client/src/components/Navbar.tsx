@@ -5,6 +5,7 @@ import { fetchGuildIcon } from '../utils/helpers';
 import { GuildContext } from '../contexts/GuildContext';
 import { Dispatch, SetStateAction, useContext } from 'react';
 import { FaBars } from 'react-icons/fa';
+import { IconButton } from '../styles/base';
 
 const Nav = styled.nav`
   box-sizing: border-box;
@@ -79,15 +80,9 @@ export const Navbar = ({
       >
         {setSidebarState ? (
           <>
-            <FaBars size={18} onClick={() => setSidebarState(!sidebarState)} />
-            {/* <NavLink
-              onClick={() => {
-                updateGuild(undefined);
-                navigate('/dashboard', { state: { from: location } });
-              }}
-            >
-              Return to dashboard
-            </NavLink> */}
+            <IconButton onPress={() => setSidebarState(!sidebarState)}>
+              <FaBars size={18} />
+            </IconButton>
           </>
         ) : (
           <>

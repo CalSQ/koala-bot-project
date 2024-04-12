@@ -6,7 +6,7 @@ import {
   Text,
   ValidationResult,
 } from 'react-aria-components';
-import { FaAngleDown } from 'react-icons/fa';
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import { SelectButton, SelectMenu, SelectPopover } from '../styles/base';
 
 interface AriaSelectProps<T extends object>
@@ -35,7 +35,8 @@ export function AriaSelect<T extends object>({
             textAlign: 'left',
           }}
         />
-        <FaAngleDown aria-hidden="true" />
+        <FaAngleDown className="closed-icon" aria-hidden="true" />
+        <FaAngleUp className="open-icon" aria-hidden="true" />
       </SelectButton>
       {description && <Text slot="description">{description}</Text>}
       {errorMessage && <FieldError>{errorMessage}</FieldError>}

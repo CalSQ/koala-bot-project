@@ -1,8 +1,15 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Link, MainContent, PageContentDivision } from '../styles/base';
+import {
+  ButtonBase,
+  Link,
+  MainContent,
+  MiscButton,
+  PageContentDivision,
+} from '../styles/base';
 import { Button } from 'react-aria-components';
 import { SUPPORT_SERVER } from '../utils/constants';
+import { FaAngleLeft } from 'react-icons/fa';
 
 const Footer = styled.footer`
   font-size: 0.85rem;
@@ -38,7 +45,10 @@ export function NotFoundPage() {
         >
           404
         </span>
-        <Button onPress={handleReturn}>Return</Button>
+        <ButtonBase onPress={handleReturn}>
+          <FaAngleLeft size={18} />
+          <p>Return</p>
+        </ButtonBase>
       </MainContent>
       <Footer>
         <span
