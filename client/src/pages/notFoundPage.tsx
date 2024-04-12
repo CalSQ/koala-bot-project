@@ -4,10 +4,8 @@ import {
   ButtonBase,
   Link,
   MainContent,
-  MiscButton,
   PageContentDivision,
 } from '../styles/base';
-import { Button } from 'react-aria-components';
 import { SUPPORT_SERVER } from '../utils/constants';
 import { FaAngleLeft } from 'react-icons/fa';
 
