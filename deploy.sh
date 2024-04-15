@@ -6,10 +6,10 @@
 # BACKEND_PATH=/var/www (Required)
 # BACKEND_SSH_PORT=22 (Default: 22)
 # BACKEND_SSH_KEY=~/.ssh/id_rsa (Default: none)
-source api/.env
+source .env
 
 # Options
-sync_nginx=true
+sync_nginx_docker=true
 options=( "api" "client" )
 indexes=( "${!options[@]}" )
 
@@ -107,24 +107,24 @@ if (($OPTION_INDEX >= 0 && $OPTION_INDEX <= indexes[-1]+1)); then
     if [[ $OPTION_INDEX -eq 0 ]]; then
       for key in "${!options[@]}"; do
         echo -e "${Gray}Deploying ${options[$key]}...${Reset}"
-        scp $([ -f $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r ${options[$key]}/dist/* $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH/${options[$key]}
+        scp $([ -f $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r ${options[$key]}/{dist,Dockerfile,package.json} $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH/${options[$key]}
       done
     else
-      scp $([ $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r $OPTION_VALUE/dist/* $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH/$OPTION_VALUE
+      scp $([ $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r $OPTION_VALUE/{dist,Dockerfile,package.json} $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH/$OPTION_VALUE
     fi
-    echo "${Green}Deployment successful.${Reset}"
+    echo -e "${Green}Deployment successful.${Reset}"
   fi
 
-  # Sync nginx configuration
-  if [ $sync_nginx ]; then
+  # Sync nginx & docker configuration
+  if [ $sync_nginx_docker ]; then
     if [ ! $SKIP_PROMPT ]; then
-      read -p "$(echo -e $Yellow"Sync nginx configuration? [y/n] "$Reset)" -n 1 -r
+      read -p "$(echo -e $Yellow"Sync nginx and docker configuration? [y/n] "$Reset)" -n 1 -r
       echo
     else
       REPLY="y"
     fi
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-      scp $([ $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r nginx/* $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH/nginx
+      scp $([ $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r ./{nginx,docker-compose-production.yml,.env} $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH
       echo -e "${Green}Sync successful.${Reset}"
     fi
   fi

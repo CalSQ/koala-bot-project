@@ -1,10 +1,7 @@
 FROM oven/bun
 
-WORKDIR /koalabot
-COPY package*.json ./
-RUN bun install
-
+WORKDIR /www/bot
 COPY . .
-RUN bun run build 
+RUN bun install
 
 CMD ["sh", "-c", "bun run start:prod"]
