@@ -7,17 +7,20 @@ services:
     restart: always
     ports:
       - 6001:6001
+    env_file:
+      - .env
     networks:
       - app-network
     depends_on:
       - mongo
-      - nginx
 
   client:
     build: ./client
     restart: always
     ports:
       - 3001:3001
+    volumes:
+      - client-files:/bot
     networks:
       - app-network
     depends_on:
@@ -54,11 +57,20 @@ services:
   #   networks:
   #     - app-network
   nginx:
-    build: ./nginx
+    image: nginx:latest
+    #build: ./nginx
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ../nginx.conf:/etc/nginx/conf.d/default.conf
+      - ../credentials:/credentials
+      - client-files:/bot
     networks:
       - app-network
+    depends_on:
+      - client
+      - api
 volumes:
   data:
+  client-files:

@@ -6,7 +6,14 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  console.log(process.env.DISCORD_APP_ID);
+  // Environment checks
+  if (
+    !process.env.COOKIE_SECRET ||
+    !process.env.FRONTEND_HOST ||
+    !process.env.PORT
+  ) {
+    throw new Error('Missing required environment variables');
+  }
 
   app.setGlobalPrefix('api');
 
@@ -25,14 +32,13 @@ async function bootstrap() {
     }),
   );
 
+  // CORS
   app.enableCors({
-    origin:
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3001'
-        : 'http://152.53.21.200:3001',
+    origin: process.env.FRONTEND_HOST,
     credentials: true,
   });
 
+  // Initiate application
   try {
     await app.listen(process.env.PORT);
     console.log(

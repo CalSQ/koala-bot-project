@@ -1,6 +1,6 @@
 FROM oven/bun
 
-WORKDIR /koalabot
+WORKDIR /bot
 COPY package*.json ./
 RUN bun install
 

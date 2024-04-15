@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": ".",
   "scripts": {
     "start:dev": "REACT_APP_NODE_ENV=development vite",
     "start:prod": "REACT_APP_NODE_ENV=production bun run serve -s dist -l 3001",

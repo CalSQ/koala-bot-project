@@ -8,8 +8,7 @@ import { DiscordModule } from './discord/discord.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath:
-        process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
+      envFilePath: '.env',
     }),
     MongooseModule.forRoot(process.env.MONGO_URI, {
       autoIndex: true,
