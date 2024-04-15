@@ -8,25 +8,46 @@
 # BACKEND_SSH_KEY=~/.ssh/id_rsa (Default: none)
 source api/.env
 
-########################################################################
-
 # Options
+sync_nginx=true
 options=( "api" "client" )
 indexes=( "${!options[@]}" )
 
+########################################################################
+
+Reset='\033[0m'
+Bold="\033[1m"
+Underline="\033[4m"
+Flash="\033[5m"
+Black='\033[0;30m'
+Red='\033[0;31m'
+Green='\033[0;32m'
+Yellow='\033[0;33m'
+Blue='\033[0;34m'
+Purple='\033[0;35m'
+Cyan='\033[0;36m'
+White='\033[0;37m'
+Gray='\033[1;30m'
+
+########################################################################
+
 # Display options
-echo -e "[0] all"
+echo -e "$Gray[0]$Reset all"
 for key in "${!options[@]}"; do
-  echo "[$(($key+1))] ${options[$key]}"
+  echo -e "$Gray[$(($key+1))]$Reset ${options[$key]}"
 done
-read -p "Select an option to deploy > " -n 1 -r
-echo; OPTION_INDEX=$REPLY
+read -p "$(echo -e ${Yellow}"Select an option to deploy > "${Reset})" -n 1 -r OPTION_INDEX
+echo
 
 # Check for -y flag (yes to prompts)
 while test $# -gt 0; do
   case "$1" in
     -y|--yes)
       SKIP_PROMPT=true
+      break
+      ;;
+    -a|--all)
+      echo "Incomplete flag"
       break
       ;;
   esac
@@ -40,18 +61,18 @@ if (($OPTION_INDEX >= 0 && $OPTION_INDEX <= indexes[-1]+1)); then
   if [[ $OPTION_INDEX -eq 0 ]]; then
     for key in "${!options[@]}"; do
       if [ ! -d "${options[$key]}" ]; then
-        echo "Deployment failed, the directory does not exist."; exit 1
+        echo -e "${Red}${Bold}[ Error ] Deployment failed, the directory does not exist.${Reset}"; exit 1
       fi
     done
   else
     if [ ! -d "${OPTION_VALUE}" ]; then
-      echo "Deployment failed, the directory does not exist."; exit 1
+      echo -e "${Red}${Bold}[ Error ] Deployment failed, the directory does not exist.${Reset}"; exit 1
     fi
   fi
 
   # Prompt build files
   if [ ! $SKIP_PROMPT ]; then
-    read -p "Create build files? [y/n] " -n 1 -r
+    read -p "$(echo -e $Yellow"Create build files? [y/n] "$Reset)" -n 1 -r
     echo
   else
     REPLY="y"
@@ -59,21 +80,25 @@ if (($OPTION_INDEX >= 0 && $OPTION_INDEX <= indexes[-1]+1)); then
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     if [[ $OPTION_INDEX -eq 0 ]]; then
       for key in "${!options[@]}"; do
-        cd ${options[$key]}
-        bun run build
-        cd ..
+        if [ -f "${options[$key]}/package.json" ]; then
+          cd ${options[$key]}
+          bun run build
+          cd ..
+        else
+          echo -e "${Red}${Bold}[ Error ] No package.json found in ${options[$key]}, skipping.${Reset}"
+        fi
       done
     else
       cd ${OPTION_VALUE}
       bun run build
       cd ..
     fi
-    echo "Build successful."
+    echo -e "${Green}Build successful.${Reset}"
   fi
 
   # Deploy selected option
   if [ ! $SKIP_PROMPT ]; then
-    read -p "Deploy app? [y/n] " -n 1 -r
+    read -p "$(echo -e $Yellow"Deploy app? [y/n] "$Reset)" -n 1 -r
     echo
   else
     REPLY="y"
@@ -81,19 +106,30 @@ if (($OPTION_INDEX >= 0 && $OPTION_INDEX <= indexes[-1]+1)); then
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     if [[ $OPTION_INDEX -eq 0 ]]; then
       for key in "${!options[@]}"; do
-        echo "Deploying ${options[$key]}..."
-        cd ${options[$key]}
-        scp $([ -f $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r dist/* $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH/${options[$key]}
-        cd ..
+        echo -e "${Gray}Deploying ${options[$key]}...${Reset}"
+        scp $([ -f $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r ${options[$key]}/dist/* $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH/${options[$key]}
       done
     else
-      cd ${OPTION_VALUE}
-      scp $([ $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r dist/* $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH/$OPTION_VALUE
-      cd ..
+      scp $([ $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r $OPTION_VALUE/dist/* $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH/$OPTION_VALUE
     fi
-    echo "Deployment successful."
+    echo "${Green}Deployment successful.${Reset}"
   fi
-  echo "Finished."
+
+  # Sync nginx configuration
+  if [ $sync_nginx ]; then
+    if [ ! $SKIP_PROMPT ]; then
+      read -p "$(echo -e $Yellow"Sync nginx configuration? [y/n] "$Reset)" -n 1 -r
+      echo
+    else
+      REPLY="y"
+    fi
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      scp $([ $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r nginx/* $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH/nginx
+      echo -e "${Green}Sync successful.${Reset}"
+    fi
+  fi
+
+  echo -e "${Green}${Bold}Finished!${Reset}"
 else
-  echo "Deployment failed, an invalid option was selected."; exit 1
+  echo -e "${Red}${Bold}[ Error ] Deployment failed, an invalid option was selected.${Reset}"; exit 1
 fi
