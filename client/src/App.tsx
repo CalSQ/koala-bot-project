@@ -11,7 +11,7 @@ import { NotFoundPage } from './pages/notFoundPage';
 import { UserPage } from './pages/userPage';
 import { ReportPage } from './pages/reportPage';
 import { GuildPageGeneral } from './pages/guildPage';
-import { GuildPageBase } from './styles/base';
+import { SidebarBase } from './styles/base';
 import { Sidebar } from './components/Sidebar';
 
 const queryClient = new QueryClient({
@@ -60,15 +60,8 @@ function App() {
             path="/dashboard/user"
             element={
               <ProtectedRoute>
-                <Navbar
-                  title="User Settings"
-                  sidebarState={sidebar}
-                  setSidebarState={setSidebar}
-                />
-                <GuildPageBase>
-                  <Sidebar sidebarState={sidebar} />
-                  <UserPage />
-                </GuildPageBase>
+                <Navbar title="User Settings" returnItem />
+                <UserPage />
               </ProtectedRoute>
             }
           />
@@ -76,15 +69,8 @@ function App() {
             path="/dashboard/report"
             element={
               <ProtectedRoute>
-                <Navbar
-                  title="Report Panel"
-                  sidebarState={sidebar}
-                  setSidebarState={setSidebar}
-                />
-                <GuildPageBase>
-                  <Sidebar sidebarState={sidebar} />
-                  <ReportPage />
-                </GuildPageBase>
+                <Navbar title="Report Panel" returnItem />
+                <ReportPage />
               </ProtectedRoute>
             }
           />
@@ -96,11 +82,12 @@ function App() {
                   title="Guild Settings"
                   sidebarState={sidebar}
                   setSidebarState={setSidebar}
+                  returnItem
                 />
-                <GuildPageBase>
-                  <Sidebar sidebarState={sidebar} />
+                <SidebarBase sidebarState={sidebar}>
+                  <Sidebar />
                   <GuildPageGeneral />
-                </GuildPageBase>
+                </SidebarBase>
               </ProtectedRoute>
             }
           />

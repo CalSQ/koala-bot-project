@@ -23,11 +23,6 @@ export const MainContent = styled.main`
   flex-grow: 1;
 `;
 
-export const MainGuildContent = styled.main`
-  display: flex;
-  flex-direction: row;
-`;
-
 export const Link = styled.a`
   text-decoration: underline;
   cursor: pointer;
@@ -41,10 +36,29 @@ export const Link = styled.a`
   }
 `;
 
-export const GuildPageBase = styled.div`
+type SidebarProps = {
+  sidebarState: boolean;
+};
+
+export const SidebarBase = styled.div<SidebarProps>`
   display: flex;
   flex-direction: row;
   width: 100%;
+
+  & > :first-child {
+    display: ${(props) => (props.sidebarState ? 'flex' : 'none')};
+  }
+
+  @media (max-width: 800px) {
+    & > :first-child {
+      position: fixed;
+      width: 100vw;
+    }
+
+    & > :last-child {
+      display: ${(props) => (props.sidebarState ? 'none' : 'flex')};
+    }
+  }
 `;
 
 // Section Styled Components
@@ -110,12 +124,12 @@ export const ButtonBase = styled(Button)<ButtonBaseProps>`
   border-radius: 10px;
   height: 50px;
   margin: 0;
-  padding-inline: 15px;
+  padding-inline: 25px;
 
   color: ${(props) => (props.warning ? '#723E3E' : '#858585')};
   font-weight: 500;
   font-size: 0.85rem;
-  overflow: hidden;
+  overflow: auto;
 
   display: flex;
   gap: 15px;

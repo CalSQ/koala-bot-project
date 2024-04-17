@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchGuildIcon } from '../utils/helpers';
 import { GuildContext } from '../contexts/GuildContext';
 import { Dispatch, SetStateAction, useContext } from 'react';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaAngleLeft } from 'react-icons/fa';
 import { IconButton } from '../styles/base';
 
 const Nav = styled.nav`
@@ -60,16 +60,18 @@ type NavbarProps = {
   title?: string;
   sidebarState?: boolean;
   setSidebarState?: Dispatch<SetStateAction<boolean>>;
+  returnItem?: boolean;
 };
 
 export const Navbar = ({
   title,
   sidebarState,
   setSidebarState,
+  returnItem,
 }: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { guild } = useContext(GuildContext);
+  const { guild, updateGuild } = useContext(GuildContext);
 
   return (
     <Nav>
@@ -78,13 +80,24 @@ export const Navbar = ({
           justifyContent: 'left',
         }}
       >
-        {setSidebarState ? (
-          <>
-            <IconButton onPress={() => setSidebarState(!sidebarState)}>
-              <FaBars size={18} />
-            </IconButton>
-          </>
-        ) : (
+        {returnItem && (
+          <IconButton
+            onPress={() => {
+              updateGuild(undefined);
+              navigate('/dashboard');
+            }}
+          >
+            <FaAngleLeft size={24} />
+          </IconButton>
+        )}
+
+        {setSidebarState && (
+          <IconButton onPress={() => setSidebarState(!sidebarState)}>
+            <FaBars size={18} />
+          </IconButton>
+        )}
+
+        {!setSidebarState && !returnItem && (
           <>
             <NavLink
               onClick={() => navigate('/', { state: { from: location } })}
