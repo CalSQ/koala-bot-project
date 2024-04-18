@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import koalaBotIcon from '../assets/koalaBotIcon.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchGuildIcon } from '../utils/helpers';
 import { GuildContext } from '../contexts/GuildContext';
@@ -130,7 +129,9 @@ export const Navbar = ({
           userSelect: 'none',
         }}
       >
-        <NavIcon src={guild ? fetchGuildIcon(guild) : koalaBotIcon}></NavIcon>
+        <NavIcon
+          src={guild ? fetchGuildIcon(guild) : '/images/koalaBotIcon.png'}
+        ></NavIcon>
       </FlexContainer>
     </Nav>
   );

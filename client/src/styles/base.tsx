@@ -63,28 +63,49 @@ export const SidebarBase = styled.div<SidebarProps>`
 
 // Section Styled Components
 
-export const SectionHeading = styled.h1`
-  font-size: 1.05rem;
-  font-weight: 500;
-`;
-
-export const Seperator = styled.div`
-  background-color: #2f2f2f;
+export const SectionBase = styled.section`
   width: 100%;
-  height: 1px;
-  position: relative;
-  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  & > header {
+    & > h1 {
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 100%;
+      background-color: #2f2f2f;
+      position: relative;
+      bottom: 10px;
+    }
+  }
 `;
 
-export const SectionMain = styled.main`
+export const SectionMain = styled.main<{ row?: boolean }>`
   display: flex;
+  flex-direction: ${(props) => (props.row ? 'row' : 'column')};
   flex-wrap: wrap;
-  gap: 10px;
-  padding-bottom: 15px;
+  gap: 16px;
+  padding-bottom: 16px;
 
   & > * {
     flex-grow: 1;
   }
+`;
+
+export const SectionRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 // Aria Buttons
@@ -94,6 +115,7 @@ export const IconButton = styled(Button)`
   border: none;
   outline: none;
   aspect-ratio: 1;
+  cursor: pointer;
 
   color: #bbbbbb;
 
@@ -147,7 +169,7 @@ export const ButtonBase = styled(Button)<ButtonBaseProps>`
     margin: 0;
     font-weight: 600;
     text-align: center;
-    line-height: 22px;
+    line-height: 25px;
     text-overflow: ellipsis;
     /* white-space: nowrap; */
     overflow: hidden;
@@ -216,6 +238,17 @@ export const MiscButton = styled(ButtonBase)`
   height: 75px;
 
   & > :first-child {
+    width: auto;
+    height: 25px;
+  }
+`;
+
+export const ContentButton = styled(ButtonBase)`
+  min-width: initial;
+  max-width: fit-content;
+  padding-inline: 25px;
+
+  & > p {
     width: auto;
     height: 25px;
   }

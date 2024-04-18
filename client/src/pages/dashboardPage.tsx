@@ -4,9 +4,8 @@ import {
   MainContent,
   MiscButton,
   PageContentDivision,
-  SectionHeading,
+  SectionBase,
   SectionMain,
-  Seperator,
 } from '../styles/base';
 
 import { API_ENDPOINTS, BOT_INVITE_URL } from '../utils/constants';
@@ -49,16 +48,11 @@ export function DashboardPage() {
             width: '100%',
           }}
         >
-          <section>
-            <header
-              style={{
-                marginBottom: '15px',
-              }}
-            >
-              <SectionHeading>Guilds</SectionHeading>
-              <Seperator />
+          <SectionBase>
+            <header>
+              <h1>Guilds</h1>
             </header>
-            <SectionMain>
+            <SectionMain row>
               {isLoading ? (
                 <div>Loading...</div>
               ) : (
@@ -89,18 +83,13 @@ export function DashboardPage() {
                 </>
               )}
             </SectionMain>
-          </section>
+          </SectionBase>
 
-          <section>
-            <header
-              style={{
-                marginBottom: '15px',
-              }}
-            >
-              <SectionHeading>Miscellaneous</SectionHeading>
-              <Seperator />
+          <SectionBase>
+            <header>
+              <h1>Miscellaneous</h1>
             </header>
-            <SectionMain>
+            <SectionMain row>
               <MiscButton
                 notification={1}
                 onPress={() => {
@@ -128,7 +117,7 @@ export function DashboardPage() {
                 <p>Logout</p>
               </MiscButton>
             </SectionMain>
-          </section>
+          </SectionBase>
         </div>
       </MainContent>
     </PageContentDivision>

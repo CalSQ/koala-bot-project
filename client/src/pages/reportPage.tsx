@@ -3,9 +3,8 @@ import {
   MainContent,
   MiscButton,
   PageContentDivision,
-  SectionHeading,
+  SectionBase,
   SectionMain,
-  Seperator,
 } from '../styles/base';
 
 export function ReportPage() {
@@ -18,16 +17,11 @@ export function ReportPage() {
             width: '100%',
           }}
         >
-          <section>
-            <header
-              style={{
-                marginBottom: '15px',
-              }}
-            >
-              <SectionHeading>Options</SectionHeading>
-              <Seperator />
+          <SectionBase>
+            <header>
+              <h1>Options</h1>
             </header>
-            <SectionMain>
+            <SectionMain row>
               <MiscButton>
                 <FaBug className="icon" />
                 <p>Bug Report</p>
@@ -41,7 +35,7 @@ export function ReportPage() {
                 <p>Complaint</p>
               </MiscButton>
             </SectionMain>
-          </section>
+          </SectionBase>
         </div>
       </MainContent>
     </PageContentDivision>

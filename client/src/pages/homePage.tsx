@@ -8,7 +8,6 @@ import {
   PageContentDivision,
 } from '../styles/base';
 import { FaDiscord, FaExternalLinkAlt } from 'react-icons/fa';
-import koalaBotIcon from '../assets/koalaBotIcon.png';
 import { API_ENDPOINTS, SUPPORT_SERVER } from '../utils/constants';
 
 const Footer = styled.footer`
@@ -43,7 +42,7 @@ export function HomePage() {
         }}
       >
         <img
-          src={koalaBotIcon}
+          src="/images/koalaBotIcon.png"
           alt="Koala Bot Logo"
           style={{
             maxWidth: '100px',

@@ -1,12 +1,13 @@
 import { AriaSelect } from '../components/AriaSelect';
 import {
+  ContentButton,
   MainContent,
   MiscButton,
   PageContentDivision,
-  SectionHeading,
   SectionMain,
+  SectionRow,
   SelectListItem,
-  Seperator,
+  SectionBase,
 } from '../styles/base';
 
 export function UserPage() {
@@ -19,14 +20,10 @@ export function UserPage() {
             width: '100%',
           }}
         >
-          <section>
-            <header
-              style={{
-                marginBottom: '15px',
-              }}
-            >
-              <SectionHeading>Components</SectionHeading>
-              <Seperator />
+          {/* Stats */}
+          <SectionBase>
+            <header>
+              <h1>Stats</h1>
             </header>
             <SectionMain>
               <AriaSelect label="Prefix">
@@ -34,38 +31,44 @@ export function UserPage() {
                 <SelectListItem>There</SelectListItem>
               </AriaSelect>
             </SectionMain>
-          </section>
-          <section>
-            <header
-              style={{
-                marginBottom: '15px',
-              }}
-            >
-              <SectionHeading>Linking</SectionHeading>
-              <Seperator />
-            </header>
-            <SectionMain>
-              <MiscButton>
-                <p>Connect Roblox</p>
-              </MiscButton>
-            </SectionMain>
-          </section>
+          </SectionBase>
 
-          <section>
-            <header
-              style={{
-                marginBottom: '15px',
-              }}
-            >
-              <SectionHeading>Userdata</SectionHeading>
-              <Seperator />
+          {/* Linking */}
+          <SectionBase>
+            <header>
+              <h1>Linking</h1>
             </header>
             <SectionMain>
-              <MiscButton warning>
+              <SectionRow>
+                <SectionRow>
+                  <img
+                    src="/images/defaultRobloxIcon.png"
+                    style={{
+                      height: '2.5rem',
+                      aspectRatio: '1',
+                      borderRadius: '25%',
+                    }}
+                  ></img>
+                  <p>Connect Roblox</p>
+                </SectionRow>
+                <ContentButton>
+                  <p>Connect Roblox</p>
+                </ContentButton>
+              </SectionRow>
+            </SectionMain>
+          </SectionBase>
+
+          {/* Userdata */}
+          <SectionBase style={{ display: 'none' }}>
+            <header>
+              <h1>Userdata</h1>
+            </header>
+            <SectionMain>
+              <MiscButton warning isDisabled overlay>
                 <p>Request the deletion of your data</p>
               </MiscButton>
             </SectionMain>
-          </section>
+          </SectionBase>
         </div>
       </MainContent>
     </PageContentDivision>
