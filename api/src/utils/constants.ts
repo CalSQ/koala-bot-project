@@ -3,6 +3,7 @@ export enum ROUTES {
   USER = 'user',
   GUILD = 'guild',
   DISCORD = 'discord',
+  ROBLOX = 'roblox',
 }
 
 export enum SERVICES {
@@ -11,6 +12,7 @@ export enum SERVICES {
   GUILD = 'GUILD_SERVICE',
   SESSION = 'SESSION_SERVICE',
   DISCORD = 'DISCORD_SERVICE',
+  ROBLOX = 'ROBLOX_SERVICE',
   DISCORD_API = 'DISCORD_API_SERVICE',
 }
 
@@ -35,6 +37,7 @@ export enum FRONTEND_ROUTES {
   ROOT = '/',
   LOGIN = '/login',
   DASHBOARD = '/dashboard',
+  USER = '/dashboard/user',
 }
 
 export enum USER_ROLES {

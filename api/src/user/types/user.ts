@@ -11,6 +11,9 @@ export type PartialUserDetails = Omit<Partial<UserDetails>, 'discordId'>;
 
 export type UserSession = {
   tokens: OAuthTokens;
+  roblox?: {
+    tokens: OAuthTokens;
+  };
   avatar: string;
   roles: USER_ROLES[];
 } & UserIdentifier;

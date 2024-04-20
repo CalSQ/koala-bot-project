@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IUserService } from 'src/user/interfaces/user';
-import { SERVICES, USER_ROLES } from 'src/utils/constants';
+import { SERVICES } from 'src/utils/constants';
 import { IAuthService } from '../interfaces/auth';
 import {
   encryptTokens,
