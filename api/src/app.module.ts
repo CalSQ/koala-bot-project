@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { DiscordModule } from './discord/discord.module';
+import { RobloxModule } from './roblox/roblox.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { DiscordModule } from './discord/discord.module';
     AuthModule,
     UsersModule,
     DiscordModule,
+    RobloxModule,
   ],
   controllers: [],
   providers: [],

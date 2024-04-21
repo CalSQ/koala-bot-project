@@ -16,11 +16,17 @@ export enum SERVICES {
   DISCORD_API = 'DISCORD_API_SERVICE',
 }
 
-export enum API_ROUTES {
+export enum DISCORD_API_ROUTES {
   TOKEN_EXCHANGE = 'https://discord.com/api/v10/oauth2/token',
   REVOKE_TOKEN = 'https://discord.com/api/v10/oauth2/token/revoke',
   USER_PROFILE = 'https://discord.com/api/v10/users/@me',
   USER_GUILDS = 'https://discord.com/api/v10/users/@me/guilds',
+}
+
+export enum ROBLOX_API_ROUTES {
+  TOKEN_EXCHANGE = 'https://apis.roblox.com/oauth/v1/token',
+  REVOKE_TOKEN = 'https://apis.roblox.com/oauth/v1/token/revoke',
+  USER_PROFILE = 'https://apis.roblox.com/oauth/v1/userinfo',
 }
 
 export enum PERMISSION_FLAGS {

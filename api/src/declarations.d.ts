@@ -26,6 +26,9 @@ declare global {
       DISCORD_APP_REDIRECT: string;
       DISCORD_OAUTH_REDIRECT: string;
       DISCORD_BOT_TOKEN: string;
+      ROBLOX_APP_ID: string;
+      ROBLOX_APP_SECRET: string;
+      ROBLOX_APP_REDIRECT: string;
       ROBLOX_OAUTH_REDIRECT: string;
     }
   }
