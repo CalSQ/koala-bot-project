@@ -1,4 +1,5 @@
 import { AriaSelect } from '../components/AriaSelect';
+import { FetchRobloxStatus } from '../queries/FetchRobloxStatus';
 import {
   ContentButton,
   MainContent,
@@ -9,8 +10,19 @@ import {
   SelectListItem,
   SectionBase,
 } from '../styles/base';
+import { API_ENDPOINTS } from '../utils/constants';
 
 export function UserPage() {
+  const { data, isError } = FetchRobloxStatus();
+
+  const handleRobloxAuth = () => {
+    if (!data?.data) {
+      window.location.href = API_ENDPOINTS.ROBLOX_LOGIN;
+    } else {
+      console.log(data?.data);
+    }
+  };
+
   return (
     <PageContentDivision>
       <MainContent>
@@ -51,7 +63,7 @@ export function UserPage() {
                   ></img>
                   <p>Connect Roblox</p>
                 </SectionRow>
-                <ContentButton>
+                <ContentButton onPress={handleRobloxAuth}>
                   <p>Connect Roblox</p>
                 </ContentButton>
               </SectionRow>

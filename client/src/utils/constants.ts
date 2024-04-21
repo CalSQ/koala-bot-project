@@ -17,6 +17,8 @@ export const API_ENDPOINTS = {
   AUTH_REVOKE: BASE_ENDPOINT + 'auth/revoke',
   AUTH_REDIRECT: BASE_ENDPOINT + 'auth/redirect',
   DISCORD_GUILDS: BASE_ENDPOINT + 'discord/guilds',
+  ROBLOX_LOGIN: BASE_ENDPOINT + 'roblox/login',
+  ROBLOX_STATUS: BASE_ENDPOINT + 'roblox/status',
 };
 
 export const DISCORD_APP_ID =

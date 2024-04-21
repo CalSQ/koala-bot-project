@@ -187,6 +187,7 @@ export const ButtonBase = styled(Button)<ButtonBaseProps>`
   }
 
   &[data-disabled] {
+    color: #723e3e;
     border-color: #723e3e88;
     cursor: not-allowed;
   }
