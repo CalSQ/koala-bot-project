@@ -1,3 +1,4 @@
+import { FaLink, FaTrash } from 'react-icons/fa';
 import { AriaSelect } from '../components/AriaSelect';
 import { FetchRobloxStatus } from '../queries/FetchRobloxStatus';
 import {
@@ -9,17 +10,46 @@ import {
   SectionRow,
   SelectListItem,
   SectionBase,
+  Link,
 } from '../styles/base';
 import { API_ENDPOINTS } from '../utils/constants';
+import styled from 'styled-components';
+
+const Card = styled.div`
+  position: relative;
+  background-color: #131315;
+  border: 1px solid #212121;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  padding: 32px 48px;
+  margin: 1rem 0;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+`;
+
+const CardDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+`;
 
 export function UserPage() {
-  const { data, isError } = FetchRobloxStatus();
+  const { data, isLoading } = FetchRobloxStatus();
 
   const handleRobloxAuth = () => {
     if (!data?.data) {
       window.location.href = API_ENDPOINTS.ROBLOX_LOGIN;
     } else {
-      console.log(data?.data);
+      window.location.href = API_ENDPOINTS.ROBLOX_LOGOUT;
     }
   };
 
@@ -32,6 +62,65 @@ export function UserPage() {
             width: '100%',
           }}
         >
+          {/* Linking */}
+          <SectionBase>
+            <SectionMain>
+              <SectionRow>
+                <Card>
+                  {isLoading ? (
+                    <p>Loading...</p>
+                  ) : (
+                    <>
+                      <img
+                        src="/images/defaultRobloxIcon.png"
+                        style={{
+                          height: '5rem',
+                          aspectRatio: '1',
+                          borderRadius: '25%',
+                        }}
+                      />
+                      <CardDetails>
+                        <Link
+                          href="https://www.roblox.com"
+                          style={{
+                            textDecoration: 'none',
+                            fontSize: '1.25rem',
+                            fontWeight: 'bold',
+                          }}
+                        >
+                          {data?.data ? data?.data.display_name : 'Roblox'}
+                        </Link>
+                        <span
+                          style={{
+                            color: '#858585',
+                          }}
+                        >
+                          {data?.data
+                            ? '@' + data?.data.username
+                            : 'Link your Roblox account'}
+                        </span>
+                      </CardDetails>
+                      <ContentButton
+                        onPress={handleRobloxAuth}
+                        style={{
+                          position: 'absolute',
+                          right: '1rem',
+                          top: '1rem',
+                        }}
+                      >
+                        {data?.data ? (
+                          <FaTrash size={15} />
+                        ) : (
+                          <FaLink size={15} />
+                        )}
+                      </ContentButton>
+                    </>
+                  )}
+                </Card>
+              </SectionRow>
+            </SectionMain>
+          </SectionBase>
+
           {/* Stats */}
           <SectionBase>
             <header>
@@ -42,31 +131,6 @@ export function UserPage() {
                 <SelectListItem>Hi</SelectListItem>
                 <SelectListItem>There</SelectListItem>
               </AriaSelect>
-            </SectionMain>
-          </SectionBase>
-
-          {/* Linking */}
-          <SectionBase>
-            <header>
-              <h1>Linking</h1>
-            </header>
-            <SectionMain>
-              <SectionRow>
-                <SectionRow>
-                  <img
-                    src="/images/defaultRobloxIcon.png"
-                    style={{
-                      height: '2.5rem',
-                      aspectRatio: '1',
-                      borderRadius: '25%',
-                    }}
-                  ></img>
-                  <p>Connect Roblox</p>
-                </SectionRow>
-                <ContentButton onPress={handleRobloxAuth}>
-                  <p>Connect Roblox</p>
-                </ContentButton>
-              </SectionRow>
             </SectionMain>
           </SectionBase>
 

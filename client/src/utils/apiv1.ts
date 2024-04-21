@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { MutualGuildsResponse, RobloxStatus, UserSession } from './types';
+import { MutualGuildsResponse, RobloxProfile, UserSession } from './types';
 import { API_ENDPOINTS } from './constants';
 
 const ReqConf: AxiosRequestConfig = {
@@ -11,7 +11,7 @@ export const getAuthSession = async () => {
 };
 
 export const getRobloxStatus = async () => {
-  return await axios.get<RobloxStatus>(API_ENDPOINTS.ROBLOX_STATUS, ReqConf);
+  return await axios.get<RobloxProfile>(API_ENDPOINTS.ROBLOX_STATUS, ReqConf);
 };
 
 export const getMutualGuilds = async () =>

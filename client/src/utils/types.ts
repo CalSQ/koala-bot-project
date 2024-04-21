@@ -6,8 +6,12 @@ export type UserSession = {
   roles: USER_ROLES[];
 };
 
-export type RobloxStatus = {
-  robloxId: string;
+export type RobloxProfile = {
+  id: string;
+  username: string;
+  display_name: string;
+  profile_url: string;
+  picture_url: string;
 };
 
 export type PartialGuild = {

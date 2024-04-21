@@ -28,7 +28,7 @@ export class RobloxService implements IRobloxService {
       profile,
       picture,
     } = await fetchUserProfile(accessToken, tokenType);
-    const data = await this.userService.updateUser(request.user.discordId, {
+    await this.userService.updateUser(request.user.discordId, {
       'roblox.id': id,
       'roblox.username': preferred_username,
       'roblox.display_name': name,
@@ -49,5 +49,12 @@ export class RobloxService implements IRobloxService {
 
   async revokeUser(token: string) {
     return await revokeUserAccessToken(token);
+  }
+
+  async logout(request) {
+    await this.userService.updateUser(request.user.discordId, {
+      roblox: {},
+    });
+    return true;
   }
 }

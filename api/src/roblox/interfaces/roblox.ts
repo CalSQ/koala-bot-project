@@ -4,6 +4,7 @@ export interface IRobloxService {
   authenticateUser(request: Request, accessCode: string): void;
   getStatus(request: Request): Promise<RobloxProfile | boolean>;
   revokeUser(token: string): Promise<boolean>;
+  logout(request: Request): Promise<boolean>;
 }
 
 export interface RobloxProfileResponse {

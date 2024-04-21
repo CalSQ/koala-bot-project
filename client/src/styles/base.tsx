@@ -28,11 +28,11 @@ export const Link = styled.a`
   cursor: pointer;
 
   &:link {
-    color: '#FFF';
+    color: #fff;
   }
 
   &:visited {
-    color: '#916DAD';
+    color: #a78ebb;
   }
 `;
 
@@ -247,7 +247,7 @@ export const MiscButton = styled(ButtonBase)`
 export const ContentButton = styled(ButtonBase)`
   min-width: initial;
   max-width: fit-content;
-  padding-inline: 25px;
+  padding-inline: 18px;
 
   & > p {
     width: auto;

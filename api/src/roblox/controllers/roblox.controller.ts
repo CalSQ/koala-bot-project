@@ -25,6 +25,18 @@ export class RobloxController {
     response.redirect(process.env.ROBLOX_OAUTH_REDIRECT);
   }
 
+  @Get('logout')
+  @UseGuards(AuthGuard)
+  async logout(@Req() request: Request, @Res() response: Response) {
+    const success = await this.robloxService.logout(request);
+    if (!success)
+      throw new HttpException(
+        'There was a problem.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    response.redirect(process.env.FRONTEND_HOST + FRONTEND_ROUTES.USER);
+  }
+
   @Get('redirect')
   @UseGuards(AuthGuard)
   async redirect(@Req() request: Request, @Res() response: Response) {

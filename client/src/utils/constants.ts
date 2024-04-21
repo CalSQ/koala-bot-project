@@ -19,6 +19,7 @@ export const API_ENDPOINTS = {
   DISCORD_GUILDS: BASE_ENDPOINT + 'discord/guilds',
   ROBLOX_LOGIN: BASE_ENDPOINT + 'roblox/login',
   ROBLOX_STATUS: BASE_ENDPOINT + 'roblox/status',
+  ROBLOX_LOGOUT: BASE_ENDPOINT + 'roblox/logout',
 };
 
 export const DISCORD_APP_ID =
