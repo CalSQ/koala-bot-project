@@ -27,7 +27,10 @@ async function bootstrap() {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        maxAge: 86_400_000,
+        maxAge: 604_800_000,
+        httpOnly: true,
+        signed: true,
+        secure: process.env.NODE_ENV === 'production',
       },
     }),
   );
