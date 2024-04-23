@@ -21,7 +21,7 @@ export function ReportPage() {
             <header>
               <h1>Options</h1>
             </header>
-            <SectionMain row>
+            <SectionMain $row>
               <MiscButton>
                 <FaBug className="icon" />
                 <p>Bug Report</p>

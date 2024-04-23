@@ -84,7 +84,7 @@ function App() {
                   setSidebarState={setSidebar}
                   returnItem
                 />
-                <SidebarBase sidebarState={sidebar}>
+                <SidebarBase $sidebarState={sidebar}>
                   <Sidebar />
                   <GuildPageGeneral />
                 </SidebarBase>

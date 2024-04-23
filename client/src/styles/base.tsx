@@ -37,7 +37,7 @@ export const Link = styled.a`
 `;
 
 type SidebarProps = {
-  sidebarState: boolean;
+  $sidebarState: boolean;
 };
 
 export const SidebarBase = styled.div<SidebarProps>`
@@ -46,7 +46,7 @@ export const SidebarBase = styled.div<SidebarProps>`
   width: 100%;
 
   & > :first-child {
-    display: ${(props) => (props.sidebarState ? 'flex' : 'none')};
+    display: ${(props) => (props.$sidebarState ? 'flex' : 'none')};
   }
 
   @media (max-width: 800px) {
@@ -56,7 +56,7 @@ export const SidebarBase = styled.div<SidebarProps>`
     }
 
     & > :last-child {
-      display: ${(props) => (props.sidebarState ? 'none' : 'flex')};
+      display: ${(props) => (props.$sidebarState ? 'none' : 'flex')};
     }
   }
 `;
@@ -87,9 +87,9 @@ export const SectionBase = styled.section`
   }
 `;
 
-export const SectionMain = styled.main<{ row?: boolean }>`
+export const SectionMain = styled.main<{ $row?: boolean }>`
   display: flex;
-  flex-direction: ${(props) => (props.row ? 'row' : 'column')};
+  flex-direction: ${(props) => (props.$row ? 'row' : 'column')};
   flex-wrap: wrap;
   gap: 16px;
   padding-bottom: 16px;

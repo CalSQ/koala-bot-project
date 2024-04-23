@@ -1,5 +1,5 @@
 import { ReactNode, useContext } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, redirect, useLocation } from 'react-router-dom';
 import { USER_ROLES } from '../utils/constants';
 import { FetchAuthSession } from '../queries/FetchAuthSession';
 import { GuildContext } from '../contexts/GuildContext';
@@ -46,7 +46,9 @@ export const ProtectedRoute = ({
       }
     }
   } else {
-    return <Navigate to="/" replace state={{ from: location }} />;
+    return (
+      <Navigate to="/" replace state={{ from: location, redirect: true }} />
+    );
   }
 
   return children;

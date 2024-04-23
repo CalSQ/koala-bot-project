@@ -30,6 +30,13 @@ export function HomePage() {
     if (data?.data) {
       navigate('/dashboard', { state: { from: location } });
     } else {
+      if (location.state?.redirect) {
+        window.sessionStorage.setItem(
+          'redirectPath',
+          location.state?.from?.pathname,
+        );
+      }
+
       window.location.href = API_ENDPOINTS.AUTH_LOGIN;
     }
   };

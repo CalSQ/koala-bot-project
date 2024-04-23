@@ -1,4 +1,9 @@
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import {
   GuildButton,
   MainContent,
@@ -16,6 +21,7 @@ import { useContext } from 'react';
 import { GuildContext } from '../contexts/GuildContext';
 import { PartialGuild } from '../utils/types';
 import { fetchGuildIcon } from '../utils/helpers';
+import { HashLoader } from 'react-spinners';
 
 export function DashboardPage() {
   const navigate = useNavigate();
@@ -34,7 +40,11 @@ export function DashboardPage() {
   };
 
   const guildParam = searchParams.get('guild');
-  if (guildParam) {
+  const redirectPath = window.sessionStorage.getItem('redirectPath');
+  if (redirectPath) {
+    window.sessionStorage.removeItem('redirectPath');
+    return <Navigate to={redirectPath} replace />;
+  } else if (guildParam) {
     const guild = data?.data.available.find((guild) => guild.id === guildParam);
     if (guild) handleAvailableGuildPress(guild);
   }
@@ -52,9 +62,9 @@ export function DashboardPage() {
             <header>
               <h1>Guilds</h1>
             </header>
-            <SectionMain row>
+            <SectionMain $row>
               {isLoading ? (
-                <div>Loading...</div>
+                <HashLoader color="#2f2f2f" />
               ) : (
                 <>
                   {data?.data && (
@@ -89,9 +99,9 @@ export function DashboardPage() {
             <header>
               <h1>Miscellaneous</h1>
             </header>
-            <SectionMain row>
+            <SectionMain $row>
               <MiscButton
-                notification={1}
+                // notification={1}
                 onPress={() => {
                   navigate('/dashboard/user', { state: { from: location } });
                 }}

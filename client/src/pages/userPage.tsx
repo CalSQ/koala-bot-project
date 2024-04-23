@@ -14,6 +14,8 @@ import {
 } from '../styles/base';
 import { API_ENDPOINTS } from '../utils/constants';
 import styled from 'styled-components';
+import { Text } from 'react-aria-components';
+import { HashLoader } from 'react-spinners';
 
 const Card = styled.div`
   position: relative;
@@ -68,7 +70,7 @@ export function UserPage() {
               <SectionRow>
                 <Card>
                   {isLoading ? (
-                    <p>Loading...</p>
+                    <HashLoader color="#2f2f2f" />
                   ) : (
                     <>
                       <img
@@ -81,7 +83,11 @@ export function UserPage() {
                       />
                       <CardDetails>
                         <Link
-                          href="https://www.roblox.com"
+                          href={
+                            data?.data
+                              ? data?.data.profile_url
+                              : 'https://www.roblox.com'
+                          }
                           style={{
                             textDecoration: 'none',
                             fontSize: '1.25rem',
