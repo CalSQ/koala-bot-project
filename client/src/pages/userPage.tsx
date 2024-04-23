@@ -14,7 +14,6 @@ import {
 } from '../styles/base';
 import { API_ENDPOINTS } from '../utils/constants';
 import styled from 'styled-components';
-import { Text } from 'react-aria-components';
 import { HashLoader } from 'react-spinners';
 
 const Card = styled.div`

@@ -1,5 +1,5 @@
 import { ReactNode, useContext } from 'react';
-import { Navigate, redirect, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { USER_ROLES } from '../utils/constants';
 import { FetchAuthSession } from '../queries/FetchAuthSession';
 import { GuildContext } from '../contexts/GuildContext';
