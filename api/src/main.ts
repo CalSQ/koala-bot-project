@@ -1,10 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as session from 'express-session';
-import * as cookieParser from 'cookie-parser';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import { NestExpressApplication } from '@nestjs/platform-express';
+
+import cookieSession from 'cookie-session';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // Environment checks
   if (
@@ -17,7 +20,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  // Middlewares
+  // Middlewares;
   app.use(cookieParser());
 
   app.use(
@@ -41,6 +44,7 @@ async function bootstrap() {
     origin: process.env.FRONTEND_HOST,
     credentials: true,
   });
+  app.set('trust proxy', 1);
 
   // Initiate application
   try {

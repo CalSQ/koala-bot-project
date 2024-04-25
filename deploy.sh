@@ -6,7 +6,7 @@
 # BACKEND_PATH=/var/www (Required)
 # BACKEND_SSH_PORT=22 (Default: 22)
 # BACKEND_SSH_KEY=~/.ssh/id_rsa (Default: none)
-source .env
+source vault/deploy.env
 
 # Options
 sync_nginx_docker=true
@@ -115,7 +115,7 @@ if (($OPTION_INDEX >= 0 && $OPTION_INDEX <= indexes[-1]+1)); then
     echo -e "${Green}Deployment successful.${Reset}"
   fi
 
-  # Sync nginx & docker configuration
+  # Sync nginx, docker configuration & vault
   if [ $sync_nginx_docker ]; then
     if [ ! $SKIP_PROMPT ]; then
       read -p "$(echo -e $Yellow"Sync nginx and docker configuration? [y/n] "$Reset)" -n 1 -r
@@ -124,7 +124,7 @@ if (($OPTION_INDEX >= 0 && $OPTION_INDEX <= indexes[-1]+1)); then
       REPLY="y"
     fi
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-      scp $([ $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r ./{nginx,docker-compose-production.yml,.env} $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH
+      scp $([ $BACKEND_SSH_KEY ] && echo "-i $BACKEND_SSH_KEY") -P ${BACKEND_SSH_PORT:-22} -r ./{config,docker-compose-production.yml,vault} $BACKEND_USER@$BACKEND_HOST:$BACKEND_PATH
       echo -e "${Green}Sync successful.${Reset}"
     fi
   fi

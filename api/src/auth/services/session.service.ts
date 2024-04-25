@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import { NextFunction, Request } from 'express';
 import { Model } from 'mongoose';
 import { Session } from 'src/schemas/Session.schema';
@@ -27,6 +27,7 @@ export class SessionService implements NestMiddleware {
         { upsert: true, new: true },
       );
     } catch (error) {
+      console.log(error);
       throw new Error('Could not create session!');
     }
   }

@@ -20,7 +20,6 @@ declare global {
       FRONTEND_HOST: string;
       ENCRYPT_KEY: string;
       COOKIE_SECRET: string;
-      MONGO_URI: string;
       DISCORD_APP_ID: string;
       DISCORD_APP_SECRET: string;
       DISCORD_APP_REDIRECT: string;
@@ -30,6 +29,9 @@ declare global {
       ROBLOX_APP_SECRET: string;
       ROBLOX_APP_REDIRECT: string;
       ROBLOX_OAUTH_REDIRECT: string;
+      MONGO_INITDB_ROOT_USERNAME: string;
+      MONGO_INITDB_ROOT_PASSWORD: string;
+      MONGO_URI: string;
     }
   }
 }

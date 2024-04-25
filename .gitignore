@@ -35,10 +35,12 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # Environment Variables
-.env*
+.env
+.env.development
+.env.production
 
 # Bun
 bun.lockb
 
-# Nginx
-**/credentials
+# Vault
+/vault

@@ -48,6 +48,7 @@ export class AuthController {
       if (error instanceof Error && error.cause === 'Application') {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
       }
+      console.log('There was error.', error);
       throw new HttpException(
         'There was a problem.',
         HttpStatus.INTERNAL_SERVER_ERROR,
