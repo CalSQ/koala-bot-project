@@ -32,7 +32,7 @@ export function HomePage() {
     } else {
       if (location.state?.redirect) {
         window.sessionStorage.setItem(
-          'redirectPath',
+          'redirect',
           location.state?.from?.pathname,
         );
       }

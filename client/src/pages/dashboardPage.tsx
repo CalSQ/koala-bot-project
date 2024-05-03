@@ -40,9 +40,9 @@ export function DashboardPage() {
   };
 
   const guildParam = searchParams.get('guild');
-  const redirectPath = window.sessionStorage.getItem('redirectPath');
+  const redirectPath = window.sessionStorage.getItem('redirect');
   if (redirectPath) {
-    window.sessionStorage.removeItem('redirectPath');
+    window.sessionStorage.removeItem('redirect');
     return <Navigate to={redirectPath} replace />;
   } else if (guildParam) {
     const guild = data?.data.available.find((guild) => guild.id === guildParam);

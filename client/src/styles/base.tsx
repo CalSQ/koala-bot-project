@@ -256,7 +256,7 @@ export const ContentButton = styled(ButtonBase)`
 `;
 
 export const SidebarButton = styled(ButtonBase)`
-  height: 60px;
+  min-height: 60px;
   width: 100%;
   justify-content: left;
   padding-left: 1.5rem;
